@@ -1,4 +1,4 @@
-# 👁️ Local Vision Module (Flux.1 [dev] + Forge)
+# 👁️ Local Vision Module (Flux.1 [dev] + Forge) [AI_Lab_Playground\local-vision-generation\stable-diffusion-webui-forge](https://github.com/VillaArreola/AI_Lab_Playground/tree/main/local-vision-generation/stable-diffusion-webui-forge)
 
 Implementación optimizada de **Flux.1 [dev]** cuantizado en **FP8** para correr en hardware de (RTX 4080 Laptop, 12GB VRAM) con máxima eficiencia.
 
