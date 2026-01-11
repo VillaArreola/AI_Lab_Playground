@@ -1,0 +1,34 @@
+# --- BLOQUEO GLOBAL DE MODELOS PESADOS (Toda la carpeta) ---
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.gguf
+*.bin
+*.h5
+*.vae
+
+# --- BLOQUEO DE ENTORNOS Y CACHÉ ---
+/venv
+/env
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+
+# --- BLOQUEO ESPECÍFICO DE FORGE ---
+# No queremos subir miles de imágenes de prueba
+/local-vision-generation/**/output/
+/local-vision-generation/**/outputs/
+/local-vision-generation/**/log/
+/local-vision-generation/**/repositories/
+
+# --- LA MAGIA: EXCEPCIONES (Whitelisting) ---
+
+
+!webui-user.bat
+!ui-config.json
+!config.json
+!*.md
+!*.txt
