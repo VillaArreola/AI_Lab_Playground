@@ -1,0 +1,650 @@
+model_list:
+   # =========================================================
+  # STACK 1: CHAT-GENERAL (Conversacion diaria)
+  # Modelos similares: Conversacion natural, uso general
+  # =========================================================
+  - model_name: chat-general
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 1: GLM-4.7 tambien excelente para chat
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 2: Minimax muy buena calidad
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 3: Gemini rapido y capaz
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: chat-general  # Fallback 4: Gemma3 27B cloud
+    litellm_params:
+      model: "ollama/gemma3:27b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 5: Meta Llama 3.3 70B
+    litellm_params:
+      model: "openrouter/meta-llama/llama-3.3-70b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: chat-general  # Fallback 6: DeepSeek V3.2 cloud (671B sin instalacion)
+    litellm_params:
+      model: "ollama/deepseek-v3.2:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 7 PREMIUM: DeepSeek-V3 (671B API)
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8000
+      stream: true
+
+  # =========================================================
+  # STACK 2: CODING (Programacion especializada)
+  # Modelos similares: Generacion y analisis de codigo
+  # =========================================================
+  - model_name: coding  # PRINCIPAL: Meta Llama 3.3 70B (excelente para coding)
+    litellm_params:
+      model: "openrouter/meta-llama/llama-3.3-70b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: coding  # Fallback 1: Kimi excelente para codigo
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coding  # Fallback 2: Gemini tambien muy capaz para codigo
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: coding  # Fallback 3: OpenRouter Qwen3 Coder
+    litellm_params:
+      model: "openrouter/qwen/qwen3-coder:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coding  # Fallback 4: Ministral 3 8B cloud
+    litellm_params:
+      model: "ollama/ministral-3:8b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  - model_name: coding  # Fallback 5: Qwen3 Coder Next cloud (modelo actualizado)
+    litellm_params:
+      model: "ollama/qwen3-coder-next:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  - model_name: coding  # Fallback 6 PREMIUM: DeepSeek-Coder (mejor que GPT-4)
+    litellm_params:
+      model: deepseek/deepseek-coder
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8000
+      stream: true
+
+  # =========================================================
+  # STACK 3: FAST (Respuestas ultra-rapidas)
+  # Modelos similares: Velocidad, bajo consumo de recursos
+  # =========================================================
+  - model_name: fast
+    litellm_params:
+      model: openai/glm-5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 1: Liquid LFM minusculo (1.2B)
+    litellm_params:
+      model: "openrouter/liquid/lfm-2.5-1.2b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 30
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 2: Ministral 3 8B rapido
+    litellm_params:
+      model: "ollama/ministral-3:8b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 3: Gemini Flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  # =========================================================
+  # STACK 4: THINKING (Razonamiento profundo)
+  # Modelos similares: Reasoning, analisis complejo, chain-of-thought
+  # =========================================================
+  - model_name: thinking
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 1: GLM-4.7 con reasoning
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 2: Minimax con reasoning
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 3: OpenRouter DeepSeek R1
+    litellm_params:
+      model: "openrouter/deepseek/deepseek-r1-0528:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 4: Qwen 3.5 397B cloud ultra potente
+    litellm_params:
+      model: "ollama/qwen3.5:397b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      temperature: 0.5
+      stream: true
+
+  - model_name: thinking  # Fallback 5 PREMIUM: DeepSeek-R1 Reasoner (compite con o1)
+    litellm_params:
+      model: deepseek/deepseek-reasoner
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8000
+      stream: true
+
+  # =========================================================
+  # STACK 5: VISION (Analisis de imagenes)
+  # Modelos similares: Vision por computadora, multimodal
+  # =========================================================
+  - model_name: vision  # Qwen3 VL 235B cloud (sin instalacion)
+    litellm_params:
+      model: "ollama/qwen3-vl:235b-instruct-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: vision  # Fallback 1: Gemini multimodal
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 300
+      supports_vision: true
+      temperature: 0.7
+      stream: true
+
+  - model_name: vision  # Fallback 2: Gemini 3 Flash Preview cloud
+    litellm_params:
+      model: "ollama/gemini-3-flash-preview:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  # =========================================================
+  # STACK 6: EMBEDDINGS (Vectorizacion para RAG)
+  # Modelos similares: Embeddings, busqueda semantica
+  # =========================================================
+  - model_name: embeddings
+    litellm_params:
+      model: "ollama/nomic-embed-text:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 120
+
+  - model_name: embeddings  # Fallback: MxBAI tambien excelente
+    litellm_params:
+      model: "ollama/mxbai-embed-large:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 120
+
+  # =========================================================
+  # STACK 7: PREMIUM (Modelos mas potentes)
+  # Modelos similares: Maxima capacidad, tareas complejas
+  # =========================================================
+  - model_name: premium
+    litellm_params:
+      model: "ollama/qwen3.5:397b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      temperature: 0.7
+      stream: true
+
+  - model_name: premium  # Fallback 1: Qwen3 Next 80B (maxima potencia)
+    litellm_params:
+      model: "openrouter/qwen/qwen3-next-80b-a3b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: premium  # Fallback 2: Kimi muy capaz
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: premium  # Fallback 3: Gemma3 27B cloud
+    litellm_params:
+      model: "ollama/gemma3:27b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      temperature: 0.7
+      stream: true
+
+  - model_name: premium  # Fallback 4: GPT-OSS 20B cloud
+    litellm_params:
+      model: "ollama/gpt-oss:20b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      temperature: 0.7
+      stream: true
+
+  # =========================================================
+  # STACK 8: MULTIMODAL (Texto + Imagenes avanzado)
+  # Modelos similares: Contenido multimedia, generacion de imagenes
+  # =========================================================
+  - model_name: multimodal  # Gemini Flash (mas rapido, mayor cuota)
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 600
+      supports_vision: true
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: multimodal  # Fallback 1: Qwen VL 235B cloud (sin instalacion)
+    litellm_params:
+      model: "ollama/qwen3-vl:235b-instruct-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      supports_vision: true
+      stream: true
+
+  - model_name: multimodal  # Fallback 2: Gemini 3 Flash Preview cloud
+    litellm_params:
+      model: "ollama/gemini-3-flash-preview:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 600
+      supports_vision: true
+      stream: true
+
+
+  # =========================================================
+  # 📋 MODELOS INDIVIDUALES (REFERENCIAS)
+  # Los siguientes modelos están disponibles individualmente
+  # para usar directamente sin fallbacks
+  # =========================================================
+
+  # --- ZENCODE FREE MODELS ---
+  - model_name: zencode-glm5
+    litellm_params:
+      model: openai/glm-5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: zencode-glm47
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: zencode-kimi
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: zencode-minimax
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: "os.environ/ZENCODE_API_KEY"
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  # --- GOOGLE GEMINI ---
+  - model_name: google-gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: "os.environ/GOOGLE_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  # --- DEEPSEEK PREMIUM MODELS ---
+  - model_name: deepseek-api-chat
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8000
+      stream: true
+
+  - model_name: deepseek-api-coder
+    litellm_params:
+      model: deepseek/deepseek-coder
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8000
+      stream: true
+
+  - model_name: deepseek-api-reasoner
+    litellm_params:
+      model: deepseek/deepseek-reasoner
+      api_base: "https://api.deepseek.com"
+      api_key: "os.environ/DEEPSEEK_API_KEY"
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8000
+      stream: true
+
+  # --- OPENROUTER FREE MODELS ---
+  - model_name: openrouter-liquid
+    litellm_params:
+      model: "openrouter/liquid/lfm-2.5-1.2b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: openrouter-nemotron-nano
+    litellm_params:
+      model: "openrouter/nvidia/nemotron-3-nano-30b-a3b:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: openrouter-glm-air
+    litellm_params:
+      model: "openrouter/z-ai/glm-4.5-air:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: openrouter-deepseek-r1
+    litellm_params:
+      model: "openrouter/deepseek/deepseek-r1-0528:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: openrouter-gemma3
+    litellm_params:
+      model: "openrouter/google/gemma-3-27b-it:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: openrouter-mistral
+    litellm_params:
+      model: "openrouter/mistralai/mistral-small-3.1-24b-instruct:free"
+      api_base: "https://openrouter.ai/api/v1"
+      api_key: "os.environ/OPENROUTER_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  # --- OLLAMA CLOUD MODELS ---
+  - model_name: ollama-glm5-cloud
+    litellm_params:
+      model: "ollama/glm-5:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: ollama-gemma3-cloud
+    litellm_params:
+      model: "ollama/gemma3:27b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: ollama-qwen35-cloud
+    litellm_params:
+      model: "ollama/qwen3.5:397b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: ollama-minimax-cloud
+    litellm_params:
+      model: "ollama/minimax-m2.5:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: ollama-qwen-vl-cloud
+    litellm_params:
+      model: "ollama/qwen3-vl:235b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: ollama-ministral-cloud
+    litellm_params:
+      model: "ollama/ministral-3:8b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: ollama-gemini3-cloud
+    litellm_params:
+      model: "ollama/gemini-3-flash-preview:cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: ollama-gpt-oss-cloud
+    litellm_params:
+      model: "ollama/gpt-oss:120b-cloud"
+      api_base: "http://ollama:11434"
+      timeout: 300
+      stream: true
+
+  # --- Z.AI ---
+  - model_name: zai-glm47
+    litellm_params:
+      model: openai/glm-4.7
+      api_base: "https://api.z.ai/api/paas/v4/"
+      api_key: "os.environ/ZAI_API_KEY"
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+
+# =========================================================
+# LITELLM SETTINGS (Comportamiento del Motor)
+# =========================================================
+litellm_settings:
+  # Performance
+  stream: true             # Streaming fluido
+  drop_params: true        # Vital: Evita errores si mandas parametros de OpenAI a Ollama
+
+  # Logging (DESACTIVADO EN PRODUCCION)
+  set_verbose: false       # false en producción para mejor performance
+  json_logs: false         # false en producción (activar solo si necesitas debug)
+
+  # Metadata para identificar qué modelo respondió
+  return_response_headers: true  # Incluye headers con info del modelo
+
+  # Callbacks (Opcional, dejalo vacio por ahora)
+  success_callback: []
+  failure_callback: []
+
+# =========================================================
+# ROUTER SETTINGS (Logica de Fallbacks)
+# =========================================================
+router_settings:
+  routing_strategy: "simple-shuffle"  # Balancea un poco la carga
+  num_retries: 2                      # Reducido para fallbacks mas rapidos
+  timeout: 300                        # Tiempo maximo total
+  cooldown_time: 60                   # Si un modelo muere, no lo uses por 1 min
+  retry_delay: 2                      # Espera 2s antes de reintentar
+  allowed_fails: 3                    # Fallos permitidos antes de cambiar modelo
+
+# =========================================================
+# GENERAL SETTINGS (Seguridad y DB)
+# =========================================================
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
+  store_model_in_db: true
+
+  # Presupuesto de Seguridad
+  max_budget: 100.0        # $100 USD al mes maximo
+  budget_duration: "30d"
+
+  # Caching (Redis)
+  cache:
+    type: redis
+    host: redis
+    port: 6379
+    password: os.environ/REDIS_PASSWORD
+    ttl: 3600
+    supported_call_types: ["completion", "acompletion", "embedding"]
+
+  # Cache especifico para embeddings (mas largo porque no cambian)
+  embedding_cache_ttl: 7200           # 2 horas para embeddings

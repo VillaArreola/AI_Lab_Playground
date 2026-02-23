@@ -1,0 +1,42 @@
+-:Thumbs.db
+-:desktop.ini
+-:~*
+-:.*
+-:*~.*
+-:*.crdownload
+-:*.sb-????????-??????
+-:*.tmp
+
+
+# --- SISTEMA Y EDITORES ---
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+.git/
+
+# --- PYTHON (Basura común de scripts) ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- C / COMPILACIÓN ---
+*.o
+*.obj
+*.class
+
+# --- ARCHIVOS PESADOS / INNECESARIOS ---
+# Evita subir ISOs o Máquinas Virtuales por error
+*.iso
+*.vmdk
+*.vdi
+*.qcow2
+*.ova
+
+# --- WORDLISTS GIGANTES (Opcional) ---
+# Si tienes el rockyou descomprimido en todos lados, mejor ignóralo
+# para no re-subir 140MB innecesariamente.
+rockyou.txt
+#puedes editar por si se requiere algo extra

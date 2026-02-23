@@ -1,0 +1,23 @@
+# Environment variables (contiene secretos sensibles)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Docker volumes data (opcional, si creas backups locales)
+# data/
+# backups/

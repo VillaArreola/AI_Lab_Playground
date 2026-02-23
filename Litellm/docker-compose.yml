@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+    volumes:
+      - litellm_redis_data:/data
+    restart: always
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - litellm_db_data:/var/lib/postgresql/data
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm-windows
+    restart: always
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./config.yaml:/app/config.yaml
+    environment:
+      # Database y Redis
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      
+      # LiteLLM Configuration
+      - STORE_MODEL_IN_DB=True
+      - LITELLM_MASTER_KEY=${LITELLM_MASTER_KEY}
+      
+      # API Keys para modelos externos
+      - ZENCODE_API_KEY=${ZENCODE_API_KEY}
+      # - OPENAI_API_KEY=${OPENAI_API_KEY}  # Descomentar si usas OpenAI
+      # - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}  # Descomentar si usas DeepSeek API
+    command: [ "--config", "/app/config.yaml", "--detailed_debug" ]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  litellm_db_data:
+  litellm_redis_data:

@@ -1,0 +1,125 @@
+# ==========================================
+# ARCHIVOS CON DATOS SENSIBLES
+# ==========================================
+*.env
+.env.*
+!.env.example
+!.env.template
+
+# ==========================================
+# MODELOS Y ARCHIVOS PESADOS
+# ==========================================
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.gguf
+*.bin
+*.h5
+*.vae
+*.pb
+*.onnx
+*.tflite
+
+# ==========================================
+# ENTORNOS VIRTUALES Y CACHE DE PYTHON
+# ==========================================
+venv/
+env/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.ipynb_checkpoints/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ==========================================
+# CARPETAS DE DATOS Y CACHE
+# ==========================================
+# OpenWebUI
+OpenWebUi/cache/
+OpenWebUi/uploads/
+OpenWebUi/vector_db/
+OpenWebUi/OpenWebUi/
+
+# Litellm
+Litellm/data/
+Litellm/logs/
+
+# TestApi
+TestApi/env/
+
+# MCP
+MCP/data/
+MCP/cache/
+
+# Open-webui
+open-webui/data/
+open-webui/cache/
+
+# ==========================================
+# FORGE / STABLE DIFFUSION
+# ==========================================
+local-vision-generation/**/output/
+local-vision-generation/**/outputs/
+local-vision-generation/**/log/
+local-vision-generation/**/logs/
+local-vision-generation/**/repositories/
+local-vision-generation/**/models/
+local-vision-generation/**/embeddings/
+local-vision-generation/**/extensions-builtin/
+
+# ==========================================
+# LOGS Y TEMPORALES
+# ==========================================
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+logs/
+temp/
+tmp/
+
+# ==========================================
+# BASES DE DATOS
+# ==========================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# ==========================================
+# SISTEMA OPERATIVO
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# EXCEPCIONES - ARCHIVOS QUE SÍ SE SUBEN
+# ==========================================
+# Configuraciones importantes
+!*.yml
+!*.yaml
+!*docker-compose*.yml
+!*config.yaml
+!*.md
+!*.txt
+!README*
+!*.json
+
+# Ejemplos de configuración
+!.env.example
+!.env.template

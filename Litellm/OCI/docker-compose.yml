@@ -1,0 +1,57 @@
+# --- Base de Datos ---
+  litellm-db:
+    image: postgres:15-alpine
+    container_name: litellm-db
+    restart: always
+    env_file: .env # <--- Carga variables del archivo
+    environment:
+      POSTGRES_USER: litellm
+      POSTGRES_DB: litellm
+      # PASSWORD viene del .env
+    volumes:
+      - ./litellm-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U litellm"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lab-net
+
+  # --- Redis (Con Password) ---
+  redis:
+    image: redis:alpine
+    container_name: litellm-redis
+    restart: always
+    env_file: .env
+    # Aquí usamos el password del .env para arrancar Redis seguro
+    command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD --save 60 1 --loglevel warning"
+    volumes:
+      - ./litellm-redis-data:/data
+    networks:
+      - lab-net
+
+  # --- LiteLLM Proxy ---
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    container_name: litellm
+    restart: always
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml
+    env_file: .env 
+    environment:
+      - STORE_MODEL_IN_DB=True
+      - UI_USERNAME=admin
+      - UI_PASSWORD=admin
+    command: [ "--config", "/app/config.yaml", "--port", "4000", "--num_workers", "8" ]
+    depends_on:
+      litellm-db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      ollama:
+        condition: service_started
+    networks:
+      - lab-net

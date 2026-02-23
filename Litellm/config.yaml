@@ -1,0 +1,250 @@
+model_list:
+  # =========================================================
+  # 🟣 STACK 1: GPT-AUTOMATICO (Uso General / Chat diario)
+  # Prioridad: ZenCode GLM 4.7 -> ZenCode Kimi -> Local Kimi
+  # =========================================================
+  - model_name: gpt-automatico
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: gpt-automatico # Fallback 1: Si GLM falla
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: gpt-automatico # Fallback 2: Local si no hay internet
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      stream: true
+
+  # =========================================================
+  # 🔵 STACK 2: CODER (Programación y Scripts)
+  # Prioridad: Local Kimi -> ZenCode Kimi -> Local CodeLlama
+  # =========================================================
+  - model_name: coder
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.3
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coder # Fallback 1: Kimi en nube es muy potente
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      temperature: 0.3
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coder # Fallback 2: CodeLlama local si todo falla
+    litellm_params:
+      model: ollama/codellama:13b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  # =========================================================
+  # 💎 STACK 3: DEEPSEEK-CODER (Especialista en Código)
+  # Prioridad: DeepSeek Coder V3 local -> Fallback a Coder stack
+  # Nota: DeepSeek es extremadamente potente para código, gratis en Ollama
+  # =========================================================
+  - model_name: deepseek-coder
+    litellm_params:
+      model: ollama/deepseek-coder-v2:latest
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: deepseek-coder # Fallback: usar stack coder general
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  # =========================================================
+  # 🟢 STACK 4: VISION (Análisis de Imágenes)
+  # Prioridad: Qwen VL -> Llama 3.2 Vision (alternativa)
+  # =========================================================
+  - model_name: vision
+    litellm_params:
+      model: ollama/qwen3-vl:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: vision # Fallback: Llama 3.2 Vision
+    litellm_params:
+      model: ollama/llama3.2-vision:11b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  # =========================================================
+  # 🟡 STACK 5: FAST (Respuestas Instantáneas)
+  # Prioridad: Llama 3.1 8B local -> ZenCode Kimi -> Llama 3.2 3B ultra-rápido
+  # =========================================================
+  - model_name: fast
+    litellm_params:
+      model: ollama/llama3.1:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast # Fallback 1: Kimi en la nube sigue siendo rápido
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 120
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast # Fallback 2: Llama 3.2 3B ultra-ligero
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 30
+      temperature: 0.8
+      stream: true
+
+  # =========================================================
+  # 🧠 STACK 6: THINKING (Razonamiento Profundo)
+  # Prioridad: GLM 4.7 -> Llama 70B (si tienes recursos) -> Kimi
+  # =========================================================
+  - model_name: thinking
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking # Fallback: Kimi también es excelente para razonar
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  # =========================================================
+  # 📚 STACK 7: EMBEDDINGS (RAG / Búsqueda Semántica)
+  # Prioridad: Nomic Embed Text -> MxBAI Embed Large
+  # Nota: Para usar con bases de datos vectoriales (ChromaDB, Qdrant, etc.)
+  # =========================================================
+  - model_name: embeddings
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  - model_name: embeddings # Fallback: MxBAI también excelente calidad
+    litellm_params:
+      model: ollama/mxbai-embed-large
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  # =========================================================
+  # 🚀 STACK 8: LOCAL-PREMIUM (Modelos locales potentes)
+  # Opcional: Solo si tienes GPU potente, usar Llama 70B o Mixtral
+  # Descomenta si has descargado estos modelos en Ollama
+  # =========================================================
+  # - model_name: local-premium
+  #   litellm_params:
+  #     model: ollama/llama3.1:70b
+  #     api_base: "http://host.docker.internal:11434"
+  #     timeout: 600
+  #     temperature: 0.7
+  #     stream: true
+  #
+  # - model_name: local-premium # Fallback: Mixtral 8x7B excelente calidad
+  #   litellm_params:
+  #     model: ollama/mixtral:8x7b
+  #     api_base: "http://host.docker.internal:11434"
+  #     timeout: 600
+  #     stream: true
+
+# =========================================================
+# ROUTER SETTINGS (Estrategias de enrutamiento y failover)
+# =========================================================
+router_settings:
+  routing_strategy: "simple-shuffle"  # Opciones: simple-shuffle, latency-based-routing, usage-based-routing
+  num_retries: 3                      # Reintentos por modelo antes de pasar al siguiente
+  timeout: 300                        # Timeout global en segundos
+  cooldown_time: 60                   # Esperar 60s antes de reintentar modelo fallido
+  retry_delay: 2                      # 2 segundos entre reintentos
+
+# =========================================================
+# LITELLM SETTINGS (Configuraciones avanzadas)
+# =========================================================
+litellm_settings:
+  # Logging
+  set_verbose: false                  # true en desarrollo para debug
+  json_logs: false                    # true en producción para logs estructurados
+  
+  # Performance
+  stream: true                        # Streaming habilitado por defecto
+  drop_params: true                   # Elimina params no soportados por modelo
+  
+  # Success/Failure tracking
+  success_callback: []                # Ej: ["langfuse", "prometheus"] si quieres monitoreo
+  failure_callback: []                # Ej: ["sentry"] para alertas de errores
+
+# =========================================================
+# GENERAL SETTINGS (Configuraciones globales)
+# =========================================================
+general_settings:
+  # Seguridad
+  master_key: os.environ/LITELLM_MASTER_KEY
+  allowed_fails: 3
+  
+  # Presupuesto Global (Seguridad para APIs de pago futuras)
+  max_budget: 100.0                   # Límite de $100 USD
+  budget_duration: 30d                # Se reinicia cada 30 días
+
+  # Database (ya configurado en docker-compose)
+  database_url: os.environ/DATABASE_URL
+  store_model_in_db: true
+  
+  # Caching (Ahorra dinero en consultas repetidas)
+  cache:
+    type: redis
+    host: redis
+    port: 6379
+    password: os.environ/REDIS_PASSWORD
+    ttl: 3600                         # 1 hora para chat/completions
+    supported_call_types: ["completion", "acompletion", "embedding"]
+    
+  # Cache específico para embeddings (más largo porque no cambian)
+  embedding_cache_ttl: 7200           # 2 horas para embeddings

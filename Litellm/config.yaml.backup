@@ -1,0 +1,816 @@
+model_list:
+  # =========================================================
+  # 💬 STACK 1: CHAT-GENERAL (Conversación diaria)
+  # Modelos similares: Conversación natural, uso general
+  # =========================================================
+  - model_name: chat-general
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 1: GLM-4.7 también excelente para chat
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 2: Minimax muy buena calidad
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: chat-general  # Fallback 3: Gemini rápido y capaz
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: chat-general  # Fallback 4: Kimi local si no hay internet
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      stream: true
+
+  # =========================================================
+  # 💻 STACK 2: CODING (Programación especializada)
+  # Modelos similares: Generación y análisis de código
+  # =========================================================
+  - model_name: coding
+    litellm_params:
+      model: ollama/deepseek-coder-v2:latest
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: coding  # Fallback 1: Kimi excelente para código
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coding  # Fallback 2: CodeLlama especializado
+    litellm_params:
+      model: ollama/codellama:13b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  - model_name: coding  # Fallback 3: Gemini también muy capaz para código
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: coding  # Fallback 4: Kimi local
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  # =========================================================
+  # ⚡ STACK 3: FAST (Respuestas ultra-rápidas)
+  # Modelos similares: Velocidad, bajo consumo de recursos
+  # =========================================================
+  - model_name: fast
+    litellm_params:
+      model: openai/glm-5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 1: Llama 3.1 8B muy rápido local
+    litellm_params:
+      model: ollama/llama3.1:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 2: Llama 3.2 3B ultra-ligero
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 30
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast  # Fallback 3: Liquid LFM minúsculo (1.2B)
+    litellm_params:
+      model: openrouter/liquid/lfm-2.5-1.2b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 30
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  # =========================================================
+  # 🧠 STACK 4: THINKING (Razonamiento profundo)
+  # Modelos similares: Reasoning, análisis complejo, chain-of-thought
+  # =========================================================
+  - model_name: thinking
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 1: GLM-4.7 con reasoning
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 2: Minimax con reasoning
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking  # Fallback 3: Gemini Pro más potente
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  # =========================================================
+  # 👁️ STACK 5: VISION (Análisis de imágenes)
+  # Modelos similares: Visión por computadora, multimodal
+  # =========================================================
+  - model_name: vision
+    litellm_params:
+      model: ollama/qwen3-vl:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: vision  # Fallback 1: Llama 3.2 Vision
+    litellm_params:
+      model: ollama/llama3.2-vision:11b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: vision  # Fallback 2: Gemini multimodal
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      supports_vision: true
+      temperature: 0.7
+      stream: true
+
+  # =========================================================
+  # 📚 STACK 6: EMBEDDINGS (Vectorización para RAG)
+  # Modelos similares: Embeddings, búsqueda semántica
+  # =========================================================
+  - model_name: embeddings
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  - model_name: embeddings  # Fallback: MxBAI también excelente
+    litellm_params:
+      model: ollama/mxbai-embed-large
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  # =========================================================
+  # 🏆 STACK 7: PREMIUM (Modelos más potentes)
+  # Modelos similares: Máxima capacidad, tareas complejas
+  # =========================================================
+  - model_name: premium
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: premium  # Fallback 1: Kimi muy capaz
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: premium  # Fallback 2: GLM-4.7 potente
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  - model_name: premium  # Fallback 3: Gemini 3 Flash experimental
+    litellm_params:
+      model: gemini/gemini-3-flash-preview
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 600
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+
+  # =========================================================
+  # 📋 MODELOS INDIVIDUALES (REFERENCIAS)
+  # Los siguientes modelos están disponibles individualmente
+  # para usar directamente sin fallbacks
+  # =========================================================
+
+  # --- ZENCODE FREE MODELS ---
+  - model_name: glm5-free
+    litellm_params:
+      model: openai/glm-5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: kimi-free
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: minimax-free
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  # --- GOOGLE GEMINI ---
+  - model_name: gemini
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  # --- OPENROUTER ---
+  - model_name: openrouter
+    litellm_params:
+      model: openrouter/liquid/lfm-2.5-1.2b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+
+  # --- OLLAMA LOCAL MODELS ---
+  - model_name: deepseek-coder
+    litellm_params:
+      model: ollama/deepseek-coder-v2:latest
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: llama31-8b
+    litellm_params:
+      model: ollama/llama3.1:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      stream: true
+
+  - model_name: llama32-3b
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      stream: true
+
+
+  # =========================================================
+  # 🚧 MODELOS DESHABILITADOS / COMENTADOS
+  # =========================================================
+  
+  # --- Z.AI (Sin saldo) ---
+  # - model_name: zai
+  #   litellm_params:
+  #     model: openai/glm-4.7
+  #     api_base: "https://api.z.ai/api/paas/v4/"
+  #     api_key: os.environ/ZAI_API_KEY
+
+  # --- ZENCODE (Requieren créditos) ---
+  # - model_name: big-pickle
+  #   litellm_params:
+  #     model: openai/big-pickle
+  #     api_base: "https://opencode.ai/zen/v1/"
+  #     api_key: os.environ/ZENCODE_API_KEY
+  #
+  # - model_name: trinity-free
+  #   litellm_params:
+  #     model: openai/trinity-large-preview-free
+  #     api_base: "https://opencode.ai/zen/v1/"
+  #     api_key: os.environ/ZENCODE_API_KEY
+
+  # --- OLLAMA PREMIUM (Descomentar si tienes GPU potente) ---
+  # - model_name: llama70b
+  #   litellm_params:
+  #     model: ollama/llama3.1:70b
+  #     api_base: "http://host.docker.internal:11434"
+  #
+  # - model_name: mixtral
+  #   litellm_params:
+  #     model: ollama/mixtral:8x7b
+  #     api_base: "http://host.docker.internal:11434"
+
+
+
+  # =========================================================
+  # 🟣 STACK 1: GPT-AUTOMATICO (Uso General / Chat diario)
+  # Prioridad: ZenCode GLM 4.7 -> ZenCode Kimi -> Local Kimi
+  # =========================================================
+  - model_name: gpt-automatico
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: gpt-automatico # Fallback 1: Si GLM falla
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  - model_name: gpt-automatico # Fallback 2: Local si no hay internet
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      stream: true
+
+  # =========================================================
+  # 🔵 STACK 2: CODER (Programación y Scripts)
+  # Prioridad: Local Kimi -> ZenCode Kimi -> Local CodeLlama
+  # =========================================================
+  - model_name: coder
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.3
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coder # Fallback 1: Kimi en nube es muy potente
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      temperature: 0.3
+      max_tokens: 4096
+      stream: true
+
+  - model_name: coder # Fallback 2: CodeLlama local si todo falla
+    litellm_params:
+      model: ollama/codellama:13b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  # =========================================================
+  # 💎 STACK 3: DEEPSEEK-CODER (Especialista en Código)
+  # Prioridad: DeepSeek Coder V3 local -> Fallback a Coder stack
+  # Nota: DeepSeek es extremadamente potente para código, gratis en Ollama
+  # =========================================================
+  - model_name: deepseek-coder
+    litellm_params:
+      model: ollama/deepseek-coder-v2:latest
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      max_tokens: 8192
+      stream: true
+
+  - model_name: deepseek-coder # Fallback: usar stack coder general
+    litellm_params:
+      model: ollama/kimi-k2.5:cloud
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      temperature: 0.2
+      stream: true
+
+  # =========================================================
+  # 🟢 STACK 4: VISION (Análisis de Imágenes)
+  # Prioridad: Qwen VL -> Llama 3.2 Vision (alternativa)
+  # =========================================================
+  - model_name: vision
+    litellm_params:
+      model: ollama/qwen3-vl:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  - model_name: vision # Fallback: Llama 3.2 Vision
+    litellm_params:
+      model: ollama/llama3.2-vision:11b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 300
+      supports_vision: true
+      stream: true
+
+  # =========================================================
+  # 🟡 STACK 5: FAST (Respuestas Instantáneas)
+  # Prioridad: Llama 3.1 8B local -> ZenCode Kimi -> Llama 3.2 3B ultra-rápido
+  # =========================================================
+  - model_name: fast
+    litellm_params:
+      model: ollama/llama3.1:8b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 60
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast # Fallback 1: Kimi en la nube sigue siendo rápido
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 120
+      temperature: 0.8
+      max_tokens: 2048
+      stream: true
+
+  - model_name: fast # Fallback 2: Llama 3.2 3B ultra-ligero
+    litellm_params:
+      model: ollama/llama3.2:3b
+      api_base: "http://host.docker.internal:11434"
+      timeout: 30
+      temperature: 0.8
+      stream: true
+
+  # =========================================================
+  # 🧠 STACK 6: THINKING (Razonamiento Profundo)
+  # Prioridad: GLM 4.7 -> Llama 70B (si tienes recursos) -> Kimi
+  # =========================================================
+  - model_name: thinking
+    litellm_params:
+      model: openai/glm-4.7-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  - model_name: thinking # Fallback: Kimi también es excelente para razonar
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 600
+      temperature: 0.5
+      max_tokens: 8192
+      stream: true
+
+  # =========================================================
+  # 📚 STACK 7: EMBEDDINGS (RAG / Búsqueda Semántica)
+  # Prioridad: Nomic Embed Text -> MxBAI Embed Large
+  # Nota: Para usar con bases de datos vectoriales (ChromaDB, Qdrant, etc.)
+  # =========================================================
+  - model_name: embeddings
+    litellm_params:
+      model: ollama/nomic-embed-text
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  - model_name: embeddings # Fallback: MxBAI también excelente calidad
+    litellm_params:
+      model: ollama/mxbai-embed-large
+      api_base: "http://host.docker.internal:11434"
+      timeout: 120
+
+  # =========================================================
+  # 🚀 STACK 8: LOCAL-PREMIUM (Modelos locales potentes)
+  # Opcional: Solo si tienes GPU potente, usar Llama 70B o Mixtral
+  # Descomenta si has descargado estos modelos en Ollama
+  # =========================================================
+  # - model_name: local-premium
+  #   litellm_params:
+  #     model: ollama/llama3.1:70b
+  #     api_base: "http://host.docker.internal:11434"
+  #     timeout: 600
+  #     temperature: 0.7
+  #     stream: true
+  #
+  # - model_name: local-premium # Fallback: Mixtral 8x7B excelente calidad
+  #   litellm_params:
+  #     model: ollama/mixtral:8x7b
+  #     api_base: "http://host.docker.internal:11434"
+  #     timeout: 600
+  #     stream: true
+
+  # =========================================================
+  # 🚧 STACK 9: GOOGLE GEMINI (Modelos de Google AI - 2026)
+  # Gemini 2.5/3.0 - Rápido, multimodal, gratis de Google
+  # =========================================================
+  
+  - model_name: gemini
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: gemini # Fallback 1: Gemini 3 Flash Preview (experimental)
+    litellm_params:
+      model: gemini/gemini-3-flash-preview
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  - model_name: gemini # Fallback 2: Gemini 2.5 Pro (más potente)
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: os.environ/GOOGLE_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 8192
+      stream: true
+
+  #========================================================
+  # 🚧 STACK 10: OPENROUTER (Modelos de OpenRouter  
+  - model_name: openrouter
+    litellm_params:
+      model: openrouter/liquid/lfm-2.5-1.2b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 300
+      temperature: 0.7
+      max_tokens: 4096
+      stream: true
+      #free models disponibles en OpenRouter, puedes cambiar a otros modelos de su catálogo si quieres probar diferentes opciones
+      #qwen/qwen3-coder:free
+      #qwen/qwen-2.5-coder-32b-instruct:free
+      #liquid/lfm-2.5-1.2b-instruct
+      #google/gemma-3n-e2b-it:free
+      #mistralai/mistral-small-3.1-24b-instruct:free
+      #google/gemma-3-27b-it:free
+      #deepseek/deepseek-r1-0528:free
+      #qwen/qwen3-coder:free
+      #openai/gpt-oss-120b:free
+      #black-forest-labs/flux.2-pro
+      #bytedance-seed/seedream-4.5
+      #openrouter/aurora-alpha
+
+
+
+
+  #========================================================
+  # 🚧 STACK 12: ZENCODE FREE MODELS (Modelos gratuitos verificados)
+  # Lista oficial: https://opencode.ai/zen/v1/models
+  # ✅ NOTA: Solo 3 modelos funcionan actualmente
+  #========================================================
+  
+  # GLM-5 Free - Modelo más reciente gratuito ✅ FUNCIONA
+  - model_name: glm5-free
+    litellm_params:
+      model: openai/glm-5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  # Kimi K2.5 Free - Muy potente para chat ✅ FUNCIONA
+  - model_name: kimi-free
+    litellm_params:
+      model: openai/kimi-k2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  # Minimax M2.5 Free - Excelente calidad ✅ FUNCIONA
+  - model_name: minimax-free
+    litellm_params:
+      model: openai/minimax-m2.5-free
+      api_base: "https://opencode.ai/zen/v1/"
+      api_key: os.environ/ZENCODE_API_KEY
+      timeout: 300
+      max_tokens: 4096
+      temperature: 0.7
+      stream: true
+
+  # ❌ DESHABILITADOS - Requieren créditos
+  # - model_name: big-pickle
+  #   litellm_params:
+  #     model: openai/big-pickle
+  #     api_base: "https://opencode.ai/zen/v1/"
+  #     api_key: os.environ/ZENCODE_API_KEY
+  #
+  # - model_name: trinity-free
+  #   litellm_params:
+  #     model: openai/trinity-large-preview-free
+  #     api_base: "https://opencode.ai/zen/v1/"
+  #     api_key: os.environ/ZENCODE_API_KEY
+
+  #========================================================
+  # � STACK 11: Z.AI (Modelos GLM con thinking habilitado)
+  #========================================================
+  # API: https://api.z.ai/api/paas/v4/
+  # ✅ Modelos free disponibles: glm-4.7, glm-4.5-air
+  #
+  # ⚠️ NOTA: Si recibes error "token expired or incorrect":
+  #    1. Ve a https://z.ai/ y genera un nuevo API key
+  #    2. Actualiza ZAI_API_KEY en el archivo .env
+  #    3. Reinicia con: docker-compose restart litellm
+  #========================================================
+  
+  # ❌ DESHABILITADO: Sin saldo en cuenta Z.AI
+  # Error: "Insufficient balance or no resource package"
+  # Solución: Recarga créditos en https://z.ai/
+  
+  # - model_name: zai
+  #   litellm_params:
+  #     model: openai/glm-4.7
+  #     api_base: "https://api.z.ai/api/paas/v4/"
+  #     api_key: os.environ/ZAI_API_KEY
+  #     timeout: 300
+  #     max_tokens: 4096
+  #     temperature: 0.7
+  #     stream: true
+  #
+  # - model_name: zai  # Fallback: GLM-4.5-air (más rápido)
+  #   litellm_params:
+  #     model: openai/glm-4.5-air
+  #     api_base: "https://api.z.ai/api/paas/v4/"
+  #     api_key: os.environ/ZAI_API_KEY
+  #     timeout: 300
+  #     max_tokens: 4096
+  #     temperature: 0.7
+  #     stream: true
+  #========================================================
+
+
+
+
+
+
+
+  # =========================================================
+  # 🔌 STACK 10: OPENROUTER (Requiere API Key válida)
+  # Descomentar cuando tengas una key válida de OpenRouter
+  # Obtener en: https://openrouter.ai/keys
+  # =========================================================
+  # - model_name: openrouter-experimental
+  #   litellm_params:
+  #     model: openrouter/liquid/lfm-2.5-1.2b-instruct:free
+  #     api_key: os.environ/OPENROUTER_API_KEY
+  #     timeout: 300
+  #     temperature: 0.7
+  #     max_tokens: 4096
+  #     stream: true
+  #
+  # - model_name: openrouter-experimental # Fallback: Qwen Coder
+  #   litellm_params:
+  #     model: openrouter/qwen/qwen-2.5-coder-32b-instruct
+  #     api_key: os.environ/OPENROUTER_API_KEY
+  #     timeout: 300
+  #     temperature: 0.3
+  #     max_tokens: 8192
+  #     stream: true    
+
+# =========================================================
+# ROUTER SETTINGS (Estrategias de enrutamiento y failover)
+# =========================================================
+router_settings:
+  routing_strategy: "simple-shuffle"  # Opciones: simple-shuffle, latency-based-routing, usage-based-routing
+  num_retries: 3                      # Reintentos por modelo antes de pasar al siguiente
+  timeout: 300                        # Timeout global en segundos
+  cooldown_time: 60                   # Esperar 60s antes de reintentar modelo fallido
+  retry_delay: 2                      # 2 segundos entre reintentos
+
+# =========================================================
+# LITELLM SETTINGS (Configuraciones avanzadas)
+# =========================================================
+litellm_settings:
+  # Logging
+  set_verbose: false                  # true en desarrollo para debug
+  json_logs: false                    # true en producción para logs estructurados
+  
+  # Performance
+  stream: true                        # Streaming habilitado por defecto
+  drop_params: true                   # Elimina params no soportados por modelo
+  
+  # Success/Failure tracking
+  success_callback: []                # Ej: ["langfuse", "prometheus"] si quieres monitoreo
+  failure_callback: []                # Ej: ["sentry"] para alertas de errores
+
+# =========================================================
+# GENERAL SETTINGS (Configuraciones globales)
+# =========================================================
+general_settings:
+  # Seguridad
+  master_key: os.environ/LITELLM_MASTER_KEY
+  allowed_fails: 3
+  
+  # Presupuesto Global (Seguridad para APIs de pago futuras)
+  max_budget: 100.0                   # Límite de $100 USD
+  budget_duration: 30d                # Se reinicia cada 30 días
+
+  # Database (ya configurado en docker-compose)
+  database_url: os.environ/DATABASE_URL
+  store_model_in_db: true
+  
+  # Caching (Ahorra dinero en consultas repetidas)
+  cache:
+    type: redis
+    host: redis
+    port: 6379
+    password: os.environ/REDIS_PASSWORD
+    ttl: 3600                         # 1 hora para chat/completions
+    supported_call_types: ["completion", "acompletion", "embedding"]
+    
+  # Cache específico para embeddings (más largo porque no cambian)
+  embedding_cache_ttl: 7200           # 2 horas para embeddings
